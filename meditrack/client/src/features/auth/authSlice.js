@@ -1,12 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axios";
 
-/**
- * TASK 5.2 - The four thunks. The component never touches axios.
- *
- * Notice what is NOT in this file: the token. It lives only in the cookie.
- */
-
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (body, { rejectWithValue }) => {

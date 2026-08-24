@@ -16,7 +16,6 @@ export default function App() {
   const dispatch = useDispatch();
   const { booted } = useSelector((s) => s.auth);
 
-  // TASK 5.6 - the cookie decides who we are, so ask the server once on mount.
   useEffect(() => {
     dispatch(fetchMe());
   }, [dispatch]);

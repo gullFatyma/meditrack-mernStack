@@ -6,13 +6,6 @@ const requireRole = require("../middleware/requireRole");
 
 const router = express.Router();
 
-/**
- * GET /api/staff/appointments
- * Staff members see EVERY appointment in the clinic, with the patient's name.
- * Order matters: protect first (who are you?), then requireRole (may you?).
- *
- * Hint: Appointment.find().populate("owner", "name email").sort({ scheduledFor: 1 })
- */
 router.get(
   "/appointments",
   protect,
@@ -30,12 +23,6 @@ router.get(
   }
 );
 
-/**
- * PATCH /api/staff/appointments/:id/status
- * Staff may confirm or cancel ANY appointment - no owner filter here,
- * because the role itself is the permission.
- * Reject a status that is not "confirmed" or "cancelled" with 400.
- */
 router.patch(
   "/appointments/:id/status",
   protect,

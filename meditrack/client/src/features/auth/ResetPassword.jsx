@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 
-// TASK 8.5 (BONUS) - the raw token arrives in the URL: /reset/:raw
 export default function ResetPassword() {
   const { raw } = useParams();
   const [password, setPassword] = useState("");

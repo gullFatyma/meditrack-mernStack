@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema(
       enum: ["patient", "staff"],
       default: "patient",
     },
-    //added resetTokenHash and resetTokenExpires
     resetTokenHash: String,
     resetTokenExpires: Date,
   },

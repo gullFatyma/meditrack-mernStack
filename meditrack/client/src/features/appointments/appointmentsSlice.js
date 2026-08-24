@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axios";
 
-/**
- * TASK 6.7 - A second slice proves the architecture scales.
- * No token code here either - the cookie rides along automatically.
- */
 
 export const fetchAppointments = createAsyncThunk(
   "appointments/fetchAll",

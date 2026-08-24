@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "../../api/axios";
 
-// TASK 8.4 (BONUS) - public page, never behind ProtectedRoute.
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");

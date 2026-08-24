@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
 
-// TASK 7.5 - Staff-only screen. The UI mirrors the rule; the server enforces it.
+// Staff-only screen. The UI mirrors the rule; the server enforces it.
 export default function StaffPanel() {
   const [rows, setRows] = useState([]);
 

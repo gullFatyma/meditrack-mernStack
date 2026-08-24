@@ -7,11 +7,6 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  /**
-   *  Logout must hit the server FIRST.
-   * Clearing Redux alone leaves the HttpOnly cookie in place, and the next
-   * refresh silently logs the user back in.
-   */
   const handleLogout = async () => {
     await dispatch(logoutUser());
     navigate("/login");

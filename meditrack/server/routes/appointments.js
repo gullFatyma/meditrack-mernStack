@@ -4,10 +4,6 @@ const protect = require("../middleware/auth");
 const router = express.Router();
 router.use(protect);
 
-/**
- *  GET /api/appointments
- * Return ONLY the appointments whose owner is req.user.id, newest first.
- */
 router.get("/", async (req, res) => {
   try {
     const appointments = await Appointment.find({
@@ -22,10 +18,6 @@ router.get("/", async (req, res) => {
 });
 
 
-/**
- * POST /api/appointments
- * owner comes from the token (req.user.id), never from req.body.
- */
 router.post("/", async (req, res) => {
   try {
     const appointment = await Appointment.create({
@@ -40,12 +32,6 @@ router.post("/", async (req, res) => {
 });
 
 
-/**
- * TASK 6.5 - PUT /api/appointments/:id
- * Put BOTH _id and owner in the query so the database enforces ownership.
- * Nothing found -> 404 (never 403: a stranger must not learn the id exists).
- * Remember runValidators: true and new: true.
- */
 router.put("/:id", async (req, res) => {
   try {
     const appointment = await Appointment.findOneAndUpdate(

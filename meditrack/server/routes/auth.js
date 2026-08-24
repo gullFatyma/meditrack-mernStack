@@ -81,10 +81,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-/**
- *  - GET /api/auth/me   (protected)
- * Rebuilds the session after a hard refresh: 200 = restore, 401 = show /login.
- */
 router.get("/me", protect, async (req, res) => {
   const user = await User.findById(req.user.id);
 
@@ -97,23 +93,12 @@ router.get("/me", protect, async (req, res) => {
 
 
 
-/**
- * POST /api/auth/logout
- * Only the server can delete an HttpOnly cookie. Pass the SAME cookieOptions.
- */
 router.post("/logout", (req, res) => {
   res.clearCookie("token", cookieOptions);
   res.json({ msg: "Logged out" });
 });
 
 
-/**
- *  (BONUS) - POST /api/auth/forgot-password
- *   - always answer with the same generic message, whether or not the email exists
- *   - raw token: crypto.randomBytes(32).toString("hex")
- *   - store ONLY the sha256 hash of it, plus a 15 minute expiry
- *   - "email" the link by console.log-ing `${process.env.CLIENT_URL}/reset/${raw}`
- */
 router.post("/forgot-password", async (req, res) => {
   const generic = { msg: "If that email exists, a reset link was sent" };
 
@@ -148,12 +133,6 @@ router.post("/forgot-password", async (req, res) => {
 
 
 
-/**
- *  - POST /api/auth/reset-password/:raw
- *   - hash req.params.raw and look the user up by resetTokenHash
- *   - the query must also require resetTokenExpires: { $gt: Date.now() }
- *   - re-hash the new password, then clear both reset fields
- */
 router.post("/reset-password/:raw", async (req, res) => {
   try {
     const { password } = req.body;

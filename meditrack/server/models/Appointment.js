@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
 
-/**
- *
- * Fields:
- *   doctor    -> String, required, trim
- *   reason    -> String, default ""
- *   scheduledFor -> Date, required
- *   status    -> String, enum ["requested", "confirmed", "cancelled"], default "requested"
- *   owner     -> ObjectId, ref "User", required, index: true
- *
- * The owner value must ALWAYS come from req.user.id, never from req.body.
- */
 const appointmentSchema = new mongoose.Schema(
   {
     doctor: { type: String, required: true, trim: true },

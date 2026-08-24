@@ -12,7 +12,6 @@ export default function RegisterForm() {
   const onChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  // TASK 5.5: this one is finished for you - read it, then write LoginForm the same way.
   const onSubmit = async (e) => {
     e.preventDefault();
     if (form.password.length < 6) return alert("Minimum 6 characters");
