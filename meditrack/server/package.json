@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "MediTrack Clinic Portal - Express API (student starter)",
   "main": "server.js",
-  "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+  "scripts": {"start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed:admin": "node scripts/seedAdmin.js",
+    "seed:chatbot": "node scripts/seedChatbot.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
