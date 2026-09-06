@@ -22,6 +22,26 @@ app.use(
 );
 app.use(mongoSanitize());
 
+// Cache mongoose connection across cold starts
+let isConnected = false;
+async function connectDB() {
+  if (isConnected) return;
+  await mongoose.connect(process.env.MONGO_URI);
+  isConnected = true;
+  console.log("MongoDB connected");
+}
+
+// Ensure DB is connected BEFORE any route runs
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error("MongoDB connection failed:", err.message);
+    res.status(500).json({ error: "Database connection failed" });
+  }
+});
+
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -33,25 +53,6 @@ app.get("/api/health", (req, res) => res.json({ ok: true }));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/appointments", require("./routes/appointments"));
 app.use("/api/staff", require("./routes/staff"));
-
-// Cache mongoose connection across cold starts
-let isConnected = false;
-async function connectDB() {
-  if (isConnected) return;
-  await mongoose.connect(process.env.MONGO_URI);
-  isConnected = true;
-  console.log("MongoDB connected");
-}
-
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    console.error("MongoDB connection failed:", err.message);
-    res.status(500).json({ error: "Database connection failed" });
-  }
-});
 
 // Local dev only: run a real server
 if (process.env.NODE_ENV !== "production") {
